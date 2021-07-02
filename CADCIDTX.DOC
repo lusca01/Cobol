@@ -1,0 +1,8 @@
+HOSPITAL MAINFRAME                          *** RELACAO DE CID'S ***                                
+                                                                                                    
+CODIGO CID            DENOMINACAO               CLASSIFICACAO    CONTAGIOSA   RARIDADE              
+   ----      ------------------------------           -              -           -                  
+   1111      COVID 19                                 2              S           S                  
+   1234      GRIPE                                    3              S           N                  
+                                                                                                    
+                           *** TOTAL DE REGISTROS :    2 ***                                        

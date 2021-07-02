@@ -1,0 +1,239 @@
+
+ TXTCONV.COB                             Wed Nov 25 01:57:45 2020    Page   1
+ line number source line   Microsoft COBOL                       Version 2.20
+
+   1         IDENTIFICATION DIVISION.
+   2         PROGRAM-ID. TXTCADCONV.
+   3         AUTHOR. LUCAS DE LIMA.
+   4        ************************
+   5        * RELATORIO DE CONVENIOS   *
+   6        ************************
+   7        *----------------------------------------------------------------
+   8         ENVIRONMENT DIVISION.
+   9         CONFIGURATION SECTION.
+  10         SPECIAL-NAMES.
+  11                       DECIMAL-POINT IS COMMA.
+  12         INPUT-OUTPUT SECTION.
+  13         FILE-CONTROL.
+  14         SELECT CADCONV ASSIGN TO DISK
+  15                      ORGANIZATION IS INDEXED
+  16                      ACCESS MODE  IS DYNAMIC
+  17                      RECORD KEY   IS CODIGO
+  18                      FILE STATUS  IS ST-ERRO
+  19                      ALTERNATE RECORD KEY IS NOME WITH DUPLICATES
+  20                      ALTERNATE RECORD KEY IS PLANO WITH DUPLICATES.
+  21             SELECT CADCONVTX ASSIGN TO DISK
+  22                    ORGANIZATION IS LINE SEQUENTIAL
+  23                    ACCESS MODE IS SEQUENTIAL
+  24                    FILE STATUS  IS ST-ERRO.
+  25        *
+  26        *-----------------------------------------------------------------
+  27         DATA DIVISION.
+  28         FILE SECTION.
+  29         FD CADCONV
+  30                 LABEL RECORD IS STANDARD
+  31                 VALUE OF FILE-ID IS "CADCONV.DAT".
+  32         01  REGCONV.
+  33             03 CODIGO              PIC 9(04).
+  34             03 NOME                PIC X(30).
+  35             03 PLANO               PIC 9(02).
+  36             03 ANS                 PIC 9(06).
+  37        *
+  38         FD CADCONVTX
+  39                 LABEL RECORD IS STANDARD
+  40                 VALUE OF FILE-ID IS "CADCONVTXT.DOC".
+  41         01 REGCONVTX    PIC X(100).
+  42        *-----------------------------------------------------------------
+  43         WORKING-STORAGE SECTION.
+  44         77 W-SEL      PIC 9(01) VALUE ZEROS.
+  45         77 W-CONT     PIC 9(06) VALUE ZEROS.
+  46         77 W-OPCAO    PIC X(01) VALUE SPACES.
+  47         77 ST-ERRO    PIC X(02) VALUE "00".
+  48         77 W-ACT      PIC 9(02) VALUE ZEROS.
+  49         77 MENS       PIC X(50) VALUE SPACES.
+  50         77 LIMPA      PIC X(50) VALUE SPACES.
+  51         01 CONLIN     PIC 9(03) VALUE ZEROS.
+  52         01 CONLIN1    PIC 9(04) VALUE ZEROS.
+  53        *
+  54         01  CAB0.
+  55             05  FILLER                 PIC X(057) VALUE
+  56             "HOSPITAL MAINFRAME                          *** RELACAO D".
+  57             05  FILLER                 PIC X(015) VALUE
+
+ TXTCONV.COB                             Wed Nov 25 01:57:45 2020    Page   2
+ line number source line   Microsoft COBOL                       Version 2.20
+
+  58             "E CONVENIOS ***".
+  59    
+  60         01  CAB1.
+  61             05  FILLER                 PIC X(057) VALUE
+  62             "  CODIGO               NOME                  PLANO    ANS".
+  63    
+  64         01  CAB2.
+  65             05  FILLER                 PIC X(057) VALUE
+  66             "   ----   ------------------------------     -----   ----".
+  67             05  FILLER                 PIC X(002) VALUE
+  68             "--".
+  69    
+  70         01  CONVTX.
+  71             05  FILLER                 PIC X(003) VALUE "   ".
+  72             05  CODIGOTX  VALUE ZEROS  PIC 9(004).
+  73             05  FILLER                 PIC X(003) VALUE "   ".
+  74             05  NOMETX  VALUE SPACES PIC X(030).
+  75             05  FILLER                 PIC X(007) VALUE "       ".
+  76             05  PLANO  VALUE ZEROS  PIC 9(002).
+  77             05  FILLER                 PIC X(004) VALUE "    ".
+  78             05  ANS  VALUE ZEROS  PIC 9(006).
+  79    
+  80         01  TOTAL1.
+  81             05  FILLER                 PIC X(052) VALUE
+  82             "                           *** TOTAL DE REGISTROS : ".
+  83             05  TOTREG  VALUE ZEROS  PIC ZZZ9.
+  84             05  FILLER                 PIC X(004) VALUE " ***".
+  85        *-----------------------------------------------------------------
+  86         SCREEN SECTION.
+  87         01  TXTTELACONV.
+  88             05  BLANK SCREEN.
+  89             05  LINE 02  COLUMN 01
+  90                 VALUE  "                *** CONVERSAO DE ARQUIVO".
+  91             05  LINE 02  COLUMN 41
+  92                 VALUE  " DE CONVENIO PARA TXT ***".
+  93             05  LINE 12  COLUMN 01
+  94                 VALUE  "                         CONFIRMA IMPRES".
+  95             05  LINE 12  COLUMN 41
+  96                 VALUE  "SAO (S ou N ) :".
+  97             05  LINE 23  COLUMN 01
+  98                 VALUE  " MENSAGEM :".
+  99             05  TW-OPCAO
+ 100                 LINE 12  COLUMN 57  PIC X(01)
+ 101                 USING  W-OPCAO
+ 102                 HIGHLIGHT.
+ 103        *---------------------------------------------------------------
+ 104         PROCEDURE DIVISION.
+ 105         INICIO.
+ 106        *
+ 107         INC-001.
+ 108             MOVE SPACES TO NOME
+ 109             MOVE ZEROS TO PLANO CODIGO ANS
+ 110             DISPLAY TXTTELACONV.
+ 111         INC-OPC.
+ 112              ACCEPT TW-OPCAO
+ 113              IF W-OPCAO = "N" OR "n"
+ 114                 MOVE "* DADOS RECUSADOS PELO OPERADOR *" TO MENS
+
+ TXTCONV.COB                             Wed Nov 25 01:57:45 2020    Page   3
+ line number source line   Microsoft COBOL                       Version 2.20
+
+ 115                 PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 116                 GO TO ROT-FIM.
+ 117              IF W-OPCAO NOT = "S" AND "s"
+ 118                 MOVE "*** DIGITE APENAS S=SIM e N=NAO ***" TO MENS
+ 119                 PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 120                 GO TO INC-OPC.
+ 121        *
+ 122         INC-OP0.
+ 123             OPEN INPUT CADCONV
+ 124             IF ST-ERRO NOT = "00"
+ 125                IF ST-ERRO = "30"
+ 126                   MOVE "* ARQUIVO COVENIO NAO EXISTE *" TO MENS
+ 127                   PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 128                   GO TO ROT-FIM
+ 129                ELSE
+ 130                   MOVE "ERRO NA ABERTURA DO ARQUIVO CONVENIO" TO MENS
+ 131                   PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 132                   GO TO ROT-FIM
+ 133             ELSE
+ 134                 NEXT SENTENCE.
+ 135        *
+ 136             OPEN OUTPUT CADCONVTX
+ 137             IF ST-ERRO NOT = "00"
+ 138                        MOVE "ERRO ABERTURA DO ARQUIVO CADCONVTX" TO MENS
+ 139                        PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 140                        GO TO ROT-FIM.
+ 141         ROT-CABEC.
+ 142             WRITE REGCONVTX FROM CAB0.
+ 143             MOVE SPACES TO REGCEPTX
+ 144             WRITE REGCONVTX.
+ 145             WRITE REGCONVTX FROM CAB1.
+ 146             WRITE REGCONVTX FROM CAB2.
+ 147        *
+ 148         LER-CONV01.
+ 149             READ CADCONV NEXT
+ 150             IF ST-ERRO NOT = "00"
+ 151                IF ST-ERRO = "10"
+ 152                   MOVE SPACES TO REGCONVTX
+ 153                   WRITE REGCONVTX
+ 154                   MOVE CONLIN1 TO TOTREG
+ 155                   WRITE REGCONVTX FROM TOTAL1
+ 156                   MOVE "*** FIM DO CADCONV ***" TO MENS
+ 157                   PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 158                   GO TO ROT-FIM
+ 159                ELSE
+ 160                   MOVE "ERRO NA LEITURA CADCONV"   TO MENS
+ 161                   PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 162                   GO TO ROT-FIM
+ 163             ELSE
+ 164                NEXT SENTENCE.
+ 165         INC-003.
+ 166             MOVE CODIGO TO CODIGOTX.
+ 167             MOVE NOME TO NOMETX.
+ 168             MOVE PLANO TO PLANOTX.
+ 169             MOVE ANS TO ANSTX.
+ 170             MOVE CONVTX TO REGCONVTX.
+ 171         INC-WR1.
+
+ TXTCONV.COB                             Wed Nov 25 01:57:45 2020    Page   4
+ line number source line   Microsoft COBOL                       Version 2.20
+
+ 172             WRITE REGCONVTX
+ 173             IF ST-ERRO NOT = "00"
+ 174                 MOVE "ERRO NA GRAVACAO DO ARQUIVO CADCONVTX" TO MENS
+ 175                 PERFORM ROT-MENS THRU ROT-MENS-FIM
+ 176                 GO TO ROT-FIM.
+ 177             MOVE "*** REGISTRO GRAVADOS *** " TO MENS
+ 178             ADD 1 TO CONLIN CONLIN1
+ 179             IF CONLIN < 34
+ 180                 GO TO LER-CONV01
+ 181             ELSE
+ 182                 MOVE ZEROS TO CONLIN
+ 183                 GO TO ROT-CABEC.
+ 184        *
+ 185        * ROTINA DE FIM      *
+ 186        *
+ 187         ROT-FIM.
+ 188             DISPLAY (01, 01) ERASE
+ 189             CLOSE CADCONV CADCONVTX.
+ 190         ROT-FIMP.
+ 191             EXIT PROGRAM.
+ 192         ROT-FIMS.
+ 193             STOP RUN.
+ 194        *
+ 195        * ROTINA DE MENSAGEM *
+ 196        *
+ 197         ROT-MENS.
+ 198             MOVE ZEROS TO W-CONT.
+ 199         ROT-MENS1.
+ 200             DISPLAY (23, 12) MENS.
+ 201         ROT-MENS2.
+ 202             ADD 1 TO W-CONT
+ 203             IF W-CONT < 3000
+ 204                 GO TO ROT-MENS2
+ 205             ELSE
+ 206                 DISPLAY (23, 12) LIMPA.
+ 207         ROT-MENS-FIM.
+ 208             EXIT.
+ 209         FIM-ROT-TEMPO.
+0104:Unrecognizable element is ignored.  PLANO 
+0109:Erroneous qualification; last declaration used. PLANO 
+0109:Erroneous qualification; last declaration used. ANS 
+0143:Unrecognizable element is ignored.  REGCEPTX
+0168:Erroneous qualification; last declaration used. PLANO 
+0168:Unrecognizable element is ignored.  PLANOTX 
+0169:Erroneous qualification; last declaration used. ANS 
+0169:Unrecognizable element is ignored.  ANSTX 
+
+    8 errors or warnings
+
+   Data area size =  1626
+   Code area size =  1126
+

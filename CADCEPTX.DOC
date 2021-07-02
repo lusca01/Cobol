@@ -1,0 +1,9 @@
+HOSPITAL MAINFRAME     *** RELACAO DE CEP ***                                                       
+                                                                                                    
+   CEP       LOGRADOURO                     BAIRRO               CIDADE            UF               
+   ---       ----------                     ------               ------            --               
+11111.111 RUA PROFESSOR BRABO DEMAIS     ITAQUERACITY         SUZANO               PB               
+12345.678 RUA DOUTOR MESTRE TADEU        GUAIANACITY          SAO PAULO            AC               
+22222.222 ULTIMO TESTE DE ENDERECO       ARACAJU              SERGIPE              PE               
+                                                                                                    
+                    NUMERO DE REGISTROS :    3                                                      

@@ -1,0 +1,7 @@
+HOSPITAL MAINFRAME                          *** RELACAO DE CONVENIOS ***
+
+  CODIGO               NOME                  PLANO    ANS
+   ----   ------------------------------     -----   ------
+   9999   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       99    999999
+
+                           *** TOTAL DE REGISTROS : ZZZ9 ***

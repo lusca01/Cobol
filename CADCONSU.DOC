@@ -1,0 +1,49 @@
+HOSPITAL MAINFRAME                          *** RELACAO DE CONSULTAS ***                            
+                                                                                                    
+CPF PACIENTE: 11111111111 DATA DA CONSULTA: 11 11 1111                                              
+NOME: LUCAS TEM DEMENCIA102          SEXO: F DATA NASCIMENTO: 12 03 2000 GENERO: P                  
+CONVENIO: 1234  PLANO: 12  ANS: 777777                                                              
+CRM: 123456 NOME MEDICO: LUCAS DA MASSA BRABO DEMAIS    SEXO: M ESPECIALIDADE: 02                   
+CID: 1111  DENOMINAÇÃO: COVID 19                       CONTAGIOSA: S  RARIDADE: S CLASSIFICACAO: 2
+DESCRICAO 1:                                DESCRICAO 2:                                            
+                                                                                                    
+CPF PACIENTE: 11111111111 DATA DA CONSULTA: 12 35 6465                                              
+NOME: LUCAS TEM DEMENCIA102          SEXO: F DATA NASCIMENTO: 12 03 2000 GENERO: P                  
+CONVENIO: 1111  PLANO: 07  ANS: 444444                                                              
+CRM: 111111 NOME MEDICO: VITAO DA MASSA SOUZA           SEXO: M ESPECIALIDADE: 09                   
+CID: 1234  DENOMINAÇÃO: GRIPE                          CONTAGIOSA: S  RARIDADE: N CLASSIFICACAO: 3
+DESCRICAO 1:                                DESCRICAO 2:                                            
+                                                                                                    
+CPF PACIENTE: 12345678999 DATA DA CONSULTA: 09 01 2021                                              
+NOME: LUCAS DE LIMA SILVA            SEXO: M DATA NASCIMENTO: 15 12 2000 GENERO: N                  
+CONVENIO: 1234  PLANO: 12  ANS: 777777                                                              
+CRM: 123456 NOME MEDICO: LUCAS DA MASSA BRABO DEMAIS    SEXO: M ESPECIALIDADE: 02                   
+CID: 1234  DENOMINAÇÃO: GRIPE                          CONTAGIOSA: S  RARIDADE: N CLASSIFICACAO: 3
+DESCRICAO 1: PL                             DESCRICAO 2: FINISH                                     
+                                                                                                    
+CPF PACIENTE: 22222222222 DATA DA CONSULTA: 12 12 2020                                              
+NOME: LUCAS DE LIMA SILVA            SEXO: M DATA NASCIMENTO: 15 12 2000 GENERO: N                  
+CONVENIO: 1111  PLANO: 07  ANS: 444444                                                              
+CRM: 111111 NOME MEDICO: VITAO DA MASSA SOUZA           SEXO: M ESPECIALIDADE: 09                   
+CID: 1111  DENOMINAÇÃO: COVID 19                       CONTAGIOSA: S  RARIDADE: S CLASSIFICACAO: 2
+DESCRICAO 1: EU QUERO QUE ACABE LOGO APENAS DESCRICAO 2: POR FAVOR NAO DE ERRO                      
+                                                                                                    
+CPF PACIENTE: 48327006851 DATA DA CONSULTA: 11 11 1111                                              
+NOME: LUCAS DE LIMA SILVA            SEXO: M DATA NASCIMENTO: 15 12 2000 GENERO: N                  
+CONVENIO: 1234  PLANO: 12  ANS: 777777                                                              
+CRM: 123456 NOME MEDICO: LUCAS DA MASSA BRABO DEMAIS    SEXO: M ESPECIALIDADE: 02                   
+CID: 1234  DENOMINAÇÃO: GRIPE                          CONTAGIOSA: S  RARIDADE: N CLASSIFICACAO: 3
+DESCRICAO 1:                                DESCRICAO 2:                                            
+                                                                                                    
+                                                                                                    
+HOSPITAL MAINFRAME                          *** RELACAO DE CONSULTAS ***                            
+                                                                                                    
+CPF PACIENTE: 48327006851 DATA DA CONSULTA: 31 12 2020                                              
+NOME: LUCAS DE LIMA SILVA            SEXO: M DATA NASCIMENTO: 15 12 2000 GENERO: N                  
+CONVENIO: 1234  PLANO: 12  ANS: 777777                                                              
+CRM: 123456 NOME MEDICO: LUCAS DA MASSA BRABO DEMAIS    SEXO: M ESPECIALIDADE: 02                   
+CID: 1234  DENOMINAÇÃO: GRIPE                          CONTAGIOSA: S  RARIDADE: N CLASSIFICACAO: 3
+DESCRICAO 1:                                DESCRICAO 2:                                            
+                                                                                                    
+                                                                                                    
+                           *** TOTAL DE REGISTROS :    6 ***                                        

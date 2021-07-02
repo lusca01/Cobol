@@ -1,0 +1,10 @@
+HOSPITAL MAINFRAME                          *** RELACAO DE CONVENIOS ***                            
+                                                                                                    
+  CODIGO               NOME                  PLANO    ANS                                           
+   ----   ------------------------------     -----   ------                                         
+   1111   VITAO TA DOENTE VEY                  07    444444                                         
+   1234   PAULIN TA DODOI TAMBEM               12    777777                                         
+   2222   LUCAO FOI CONTAGIADO                 12    555555                                         
+   3333   ESSE E O ULTIMO TESTE                05    888888                                         
+                                                                                                    
+                           *** TOTAL DE REGISTROS :    4 ***                                        

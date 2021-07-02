@@ -1,0 +1,7 @@
+HOSPITAL MAINFRAME                          *** RELACAO DE CID'S ***
+
+CODIGO CID            DENOMINACAO               CLASSIFICACAO    CONTAGIOSA   RARIDADE 
+   ----      ------------------------------           -              -           -
+   9999      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX           9              X           X
+
+                           *** TOTAL DE REGISTROS : ZZZ9 ***
